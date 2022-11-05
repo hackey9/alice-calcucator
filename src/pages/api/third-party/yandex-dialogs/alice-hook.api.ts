@@ -1,12 +1,15 @@
 import { NextApiHandler } from "next"
 import { ReqBody, ResBody } from "alice-types"
 
-type TResponse = ResBody;
+const handleAlice: NextApiHandler = (req, res) => {
+    if (req.method !== "POST") {
+        res.status(504).end()
+        return;
+    }
 
-const handleAlice: NextApiHandler<TResponse> = (req, res) => {
     const body: ReqBody = req.body
 
-    console.log(req.body)
+    console.log(JSON.stringify(req.body, null, 2))
 
     const command = body.request.command
 
